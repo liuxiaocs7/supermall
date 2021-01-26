@@ -14,15 +14,22 @@ export default {
   name: 'Scroll',
   data() {
     return {
-      scroll: null
+      scroll: null,
+      message: '哈哈哈'
     }
   },
   mounted() {
     // console.log(document.querySelector('.wrapper'))
     // console.log(this.$refs.wrapper)
     this.scroll = new BScroll(this.$refs.wrapper, {
+      probeType: 3,
       click: true
     })
+  },
+  methods: {
+    scrollTo(x, y, time=300) {
+      this.scroll.scrollTo(x, y, time)
+    }
   }
 }
 </script>

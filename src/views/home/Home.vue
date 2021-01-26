@@ -5,7 +5,7 @@
     </nav-bar>
 
     <!-- 包在里面的就是可滚动的 -->
-    <scroll class="content">
+    <scroll class="content" ref="scroll">
       <home-swiper :banners="banners"/>
       <recommend-view :recommends="recommends"/>
       <feature-view/>
@@ -15,6 +15,9 @@
       <goods-list :goods="showGoods"/>
     </scroll>
 
+    <!-- 监听组件的点击事件 -->
+    <back-top @click.native="backClick"></back-top>
+
   </div>
 </template>
 
@@ -23,6 +26,8 @@
 import NavBar from 'components/common/navbar/NavBar'
 import TabControl from 'components/content/tabControl/TabControl'
 import GoodsList from 'components/content/goods/GoodsList'
+import Scroll from 'components/common/scroll/Scroll'
+import BackTop from 'components/content/backTop/BackTop'
 
 // 子组件
 import HomeSwiper from './childComps/HomeSwiper'
@@ -31,8 +36,6 @@ import FeatureView from './childComps/FeatureView'
 
 // 方法
 import {getHomeMultidata, getHomeGoods} from 'network/home'
-
-import Scroll from 'components/common/scroll/Scroll'
 
 export default {
   name: 'Home',
@@ -43,7 +46,8 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
-    Scroll
+    Scroll,
+    BackTop
   },
   data() {
     return {
@@ -109,6 +113,12 @@ export default {
           this.currentType = 'sell'
           break;
       }
+    },
+    backClick() {
+      console.log(this.$refs.scroll.message)
+      // console.log(this.$refs.scroll)
+      // this.$refs.scroll 表示拿到的组件，直接调用组件的方法
+      this.$refs.scroll.scrollTo(0, 0, 500)
     }
   }
 }
