@@ -3,7 +3,7 @@ module.exports = {
         resolve: {
             // 给文件夹配置别名
             alias: {
-                'assets': '@/assest',
+                'assets': '@/assets',
                 'common': '@/common',
                 'components': '@/components',
                 'network': '@/network',
