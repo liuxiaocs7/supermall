@@ -8,19 +8,27 @@
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
+import {getHomeMultidata} from 'network/home'
 
 export default {
   name: 'Home',
   components: {
     NavBar
+  },
+  // 组件创建的时候发送网络请求
+  created() {
+    // 1. 请求多个数据
+    getHomeMultidata().then(res => {
+      console.log(res)
+    })
   }
 }
 </script>
 
 <style>
-/* 单独为主页导航栏设置样式 */
-.home {
-  background-color: var(--color-tint);
-  color: white;
-}
+  /* 单独为主页导航栏设置样式 */
+  .home {
+    background-color: var(--color-tint);
+    color: white;
+  }
 </style>
