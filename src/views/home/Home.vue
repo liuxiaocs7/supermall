@@ -1,7 +1,7 @@
 <template>
   <div id="home">
-    <nav-bar>
-
+    <nav-bar class="home">
+      <div slot="center">购物街</div>
     </nav-bar>
   </div>
 </template>
@@ -18,4 +18,9 @@ export default {
 </script>
 
 <style>
+/* 单独为主页导航栏设置样式 */
+.home {
+  background-color: var(--color-tint);
+  color: white;
+}
 </style>
