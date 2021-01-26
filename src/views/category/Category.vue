@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper" ref="aaaa">
     <ul class="content">
+      <button @click="btnClick">按钮</button>
       <li>分类列表1</li>
       <li>分类列表2</li>
       <li>分类列表3</li>
@@ -118,10 +119,26 @@ export default {
   },
   // 组件创建完之后调用
   mounted() {
-    console.log(document.querySelector('.wrapper'))
+    // console.log(document.querySelector('.wrapper'))
     this.scroll = new BScroll(document.querySelector('.wrapper'), {
-
+      probeType: 3,
+      pullUpLoad: true
     })
+
+    // 监听滚动
+    this.scroll.on('scroll', (position) => {
+      // console.log(position)
+    })
+
+    // 上拉加载
+    this.scroll.on('pullingUp', () => {
+      console.log('上拉加载更多')
+    })
+  },
+  methods: {
+    btnClick() {
+      console.log('-btnClick-')
+    }
   }
 }
 </script>
