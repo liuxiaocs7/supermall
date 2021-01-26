@@ -15,11 +15,20 @@ export default {
   components: {
     NavBar
   },
+  data() {
+    return {
+      banners: [],
+      recommends: []
+    }
+  },
   // 组件创建的时候发送网络请求
   created() {
     // 1. 请求多个数据
     getHomeMultidata().then(res => {
-      console.log(res)
+      // console.log(res)
+      // 数据保存
+      this.banners = res.data.banner.list
+      this.recommends = res.data.recommend.list
     })
   }
 }
