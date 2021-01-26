@@ -123,7 +123,7 @@ import RecommendView from './childComps/RecommendView'
 import FeatureView from './childComps/FeatureView'
 
 // 方法
-import {getHomeMultidata} from 'network/home'
+import {getHomeMultidata, getHomeGoods} from 'network/home'
 
 export default {
   name: 'Home',
@@ -137,18 +137,42 @@ export default {
   data() {
     return {
       banners: [],
-      recommends: []
+      recommends: [],
+      goods: {
+        'pop': {page: 0, list: []},
+        'new': {page: 0, list: []},
+        'sell': {page: 0, list: []},
+      }
     }
   },
   // 组件创建的时候发送网络请求
   created() {
     // 1. 请求多个数据
-    getHomeMultidata().then(res => {
-      // console.log(res)
-      // 数据保存
-      this.banners = res.data.banner.list
-      this.recommends = res.data.recommend.list
-    })
+    this.getHomeMultidata()
+
+    // 2. 请求商品数据
+    this.getHomeGoods('pop')
+    this.getHomeGoods('new')
+    this.getHomeGoods('sell')
+  },
+  methods: {
+    getHomeMultidata() {
+      getHomeMultidata().then(res => {
+        // console.log(res)
+        // 数据保存
+        this.banners = res.data.banner.list
+        this.recommends = res.data.recommend.list
+      })
+    },
+    getHomeGoods(type) {
+      const page = this.goods[type].page + 1
+      getHomeGoods(type, page).then(res => {
+        console.log(res)
+        // 将数组中的每个元素依次取出来塞进去
+        this.goods[type].list.push(...res.data.list)
+        this.goods[type].page += 1
+      })
+    }
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="tab-control">
     <!-- 只是文字不同没必要使用插槽 -->
-    <div v-for="(item, index) in titles" class="tab-control-item" :key="item"
+    <div v-for="(item, index) in titles" class="tab-control-item" :key="index"
          :class="{active: index === currentIndex}"
          @click="itemClick(index)">
       <span>{{item}}</span>
