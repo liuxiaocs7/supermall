@@ -143,13 +143,13 @@ export default {
 }
 </script>
 
-<style>
-  .wrapper {
-    height: 150px;
-    background-color: red;
+<style scoped>
+  /* .wrapper { */
+    /* height: 150px; */
+    /* background-color: blue; */
 
     /* 原生的 */
     /* overflow: hidden; */
     /* overflow-y: scroll; */
-  }
+  /* } */
 </style>

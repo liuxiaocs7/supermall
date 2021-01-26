@@ -4,17 +4,17 @@
       <div slot="center">购物街</div>
     </nav-bar>
 
-    <div class="wrapper">
-      <div class="content">
-        <home-swiper :banners="banners"/>
-        <recommend-view :recommends="recommends"/>
-        <feature-view/>
-        <tab-control class="tab-control"
-                    :titles="['流行', '新款', '精选']"
-                    @tabClick="tabClick"/>
-        <goods-list :goods="showGoods"/>
-      </div>
-    </div>
+    <!-- 包在里面的就是可滚动的 -->
+    <scroll class="content">
+      <home-swiper :banners="banners"/>
+      <recommend-view :recommends="recommends"/>
+      <feature-view/>
+      <tab-control class="tab-control"
+                  :titles="['流行', '新款', '精选']"
+                  @tabClick="tabClick"/>
+      <goods-list :goods="showGoods"/>
+    </scroll>
+
   </div>
 </template>
 
@@ -32,7 +32,7 @@ import FeatureView from './childComps/FeatureView'
 // 方法
 import {getHomeMultidata, getHomeGoods} from 'network/home'
 
-import BScroll from 'better-scroll'
+import Scroll from 'components/common/scroll/Scroll'
 
 export default {
   name: 'Home',
@@ -43,6 +43,7 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
+    Scroll
   },
   data() {
     return {
@@ -113,10 +114,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
   #home {
     padding-top: 44px;
+    height: 100vh;
+    position: relative;
   }
 
   /* 单独为主页导航栏设置样式 */
@@ -136,5 +138,18 @@ export default {
     position: sticky;
     top: 44px;
     z-index: 9;
+  }
+
+  .content {
+    /* height: calc(100% - 93px); */
+    /* height: 300px; */
+		/* background-color: red; */
+    /* overflow: hidden; */
+
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
+    left: 0;
+    right: 0;
   }
 </style>
