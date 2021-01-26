@@ -5,7 +5,12 @@
     </nav-bar>
 
     <!-- 包在里面的就是可滚动的 -->
-    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
+    <scroll class="content"
+            ref="scroll"
+            :probe-type="3"
+            @scroll="contentScroll"
+            :pull-up-load="true"
+            @pullingUp="loadMore">
       <home-swiper :banners="banners"/>
       <recommend-view :recommends="recommends"/>
       <feature-view/>
@@ -96,6 +101,8 @@ export default {
         // 将数组中的每个元素依次取出来塞进去
         this.goods[type].list.push(...res.data.list)
         this.goods[type].page += 1
+
+        this.$refs.scroll.finishPullUp()
       })
     },
     /**
@@ -125,6 +132,10 @@ export default {
       // console.log(position)
       // position.y > 1000
       this.isShowBackTop = -position.y > 1000
+    },
+    loadMore() {
+      // console.log('上拉加载更多')
+      this.getHomeGoods(this.currentType)
     }
   }
 }

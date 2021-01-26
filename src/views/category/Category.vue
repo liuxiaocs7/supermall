@@ -144,12 +144,12 @@ export default {
 </script>
 
 <style scoped>
-  /* .wrapper { */
-    /* height: 150px; */
-    /* background-color: blue; */
+  .wrapper {
+    height: 150px;
+    background-color: blue;
 
     /* 原生的 */
-    /* overflow: hidden; */
-    /* overflow-y: scroll; */
-  /* } */
+    overflow: hidden;
+    overflow-y: scroll;
+  }
 </style>
