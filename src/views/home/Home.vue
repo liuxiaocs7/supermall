@@ -85,12 +85,12 @@ export default {
     // console.log('home destroyed')
   },
   activated() {
-    console.log('activated')
+    // console.log('activated')
     this.$refs.scroll.scrollTo(0, this.saveY, 0)
     this.$refs.scroll.refresh()
   },
   deactivated() {
-    console.log('deactivated')
+    // console.log('deactivated')
     // console.log(this.saveY)
     this.saveY = this.$refs.scroll.getScrollY()
     // console.log(this.saveY)
