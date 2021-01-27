@@ -59,7 +59,7 @@ export default {
     // 监听Scroll滚动到底部
     if(this.pullUpLoad) {
       this.scroll.on('pullingUp', () => {
-        console.log('监听到滚动到底部')
+        // console.log('监听到滚动到底部')
         this.$emit('pullingUp')
       })
     }
