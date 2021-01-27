@@ -82,10 +82,19 @@ export default {
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
 
+  },
+  mounted() {
     // 3. 开始监听item中图片加载完成
+    // this.$bus.$on('itemImageLoad', () => {
+    //   // console.log('------------')
+
+    //   // 调用30次频繁
+    //   this.$refs.scroll && this.$refs.scroll.refresh()
+    // })
+
+    const refresh = this.debounce(this.$refs.scroll.refresh, 500)
     this.$bus.$on('itemImageLoad', () => {
-      // console.log('------------')
-      this.$refs.scroll.refresh()
+      refresh()
     })
   },
   methods: {
@@ -143,7 +152,18 @@ export default {
     //   // console.log('上拉加载更多')
     //   this.getHomeGoods(this.currentType)
     // }
-  }
+    debounce(func, delay) {
+      let timer = null
+
+      return function(...args) {
+        if(timer) clearTimeout(timer)
+
+        timer = setTimeout(() => {
+          func.apply(this, args)
+        }, delay)
+      }
+    }
+  },
 }
 </script>
 
