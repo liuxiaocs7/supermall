@@ -40,11 +40,13 @@ export default {
     })
 
     // 2. 监听滚动的位置
-    this.scroll.on('scroll', (position) => {
-      // console.log(position)
-      // 自定义一个事件传出去
-      this.$emit('scroll', position)
-    })
+    if(this.probeType === 2 || this.probeType === 3) {
+      this.scroll.on('scroll', (position) => {
+        // console.log(position)
+        // 自定义一个事件传出去
+        this.$emit('scroll', position)
+      })
+    }
 
     // // 3. 监听上拉事件
     // this.scroll.on('pullingUp', () => {
@@ -54,18 +56,25 @@ export default {
 
     // console.log(this.scroll)
 
+    // 监听Scroll滚动到底部
+    if(this.pullUpLoad) {
+      this.scroll.on('pullingUp', () => {
+        console.log('监听到滚动到底部')
+        this.$emit('pullingUp')
+      })
+    }
   },
   methods: {
     scrollTo(x, y, time=300) {
       this.scroll && this.scroll.scrollTo && this.scroll.scrollTo(x, y, time)
     },
     finishPullUp() {
-      this.scroll.finishPullUp()
+      this.scroll && this.scroll.finishPullUp()
     },
     refresh() {
       // 有值的时候再刷新
       this.scroll && this.scroll.refresh()
-      console.log('-----------')
+      // console.log('-----------')
     }
   }
 }

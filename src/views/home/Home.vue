@@ -10,7 +10,7 @@
             :probe-type="3"
             @scroll="contentScroll"
             :pull-up-load="true"
-            >
+            @pullingUp="loadMore">
       <home-swiper :banners="banners"/>
       <recommend-view :recommends="recommends"/>
       <feature-view/>
@@ -41,6 +41,7 @@ import FeatureView from './childComps/FeatureView'
 
 // 方法
 import {getHomeMultidata, getHomeGoods} from 'network/home'
+import {debounce} from 'common/utils'
 
 export default {
   name: 'Home',
@@ -92,7 +93,7 @@ export default {
     //   this.$refs.scroll && this.$refs.scroll.refresh()
     // })
 
-    const refresh = this.debounce(this.$refs.scroll.refresh, 500)
+    const refresh = debounce(this.$refs.scroll.refresh, 500)
     this.$bus.$on('itemImageLoad', () => {
       refresh()
     })
@@ -117,7 +118,8 @@ export default {
         this.goods[type].list.push(...res.data.list)
         this.goods[type].page += 1
 
-        // this.$refs.scroll.finishPullUp()
+        // 完成了上拉加载更多，以便于下一次使用
+        this.$refs.scroll.finishPullUp()
       })
     },
     /**
@@ -148,21 +150,21 @@ export default {
       // position.y > 1000
       this.isShowBackTop = -position.y > 1000
     },
-    // loadMore() {
-    //   // console.log('上拉加载更多')
-    //   this.getHomeGoods(this.currentType)
-    // }
-    debounce(func, delay) {
-      let timer = null
-
-      return function(...args) {
-        if(timer) clearTimeout(timer)
-
-        timer = setTimeout(() => {
-          func.apply(this, args)
-        }, delay)
-      }
+    loadMore() {
+      // console.log('上拉加载更多')
+      this.getHomeGoods(this.currentType)
     }
+    // debounce(func, delay) {
+    //   let timer = null
+
+    //   return function(...args) {
+    //     if(timer) clearTimeout(timer)
+
+    //     timer = setTimeout(() => {
+    //       func.apply(this, args)
+    //     }, delay)
+    //   }
+    // }
   },
 }
 </script>
