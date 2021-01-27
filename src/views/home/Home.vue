@@ -10,7 +10,7 @@
             :probe-type="3"
             @scroll="contentScroll"
             :pull-up-load="true"
-            @pullingUp="loadMore">
+            >
       <home-swiper :banners="banners"/>
       <recommend-view :recommends="recommends"/>
       <feature-view/>
@@ -81,6 +81,12 @@ export default {
     this.getHomeGoods('pop')
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
+
+    // 3. 开始监听item中图片加载完成
+    this.$bus.$on('itemImageLoad', () => {
+      // console.log('------------')
+      this.$refs.scroll.refresh()
+    })
   },
   methods: {
     /**
@@ -102,7 +108,7 @@ export default {
         this.goods[type].list.push(...res.data.list)
         this.goods[type].page += 1
 
-        this.$refs.scroll.finishPullUp()
+        // this.$refs.scroll.finishPullUp()
       })
     },
     /**
@@ -133,10 +139,10 @@ export default {
       // position.y > 1000
       this.isShowBackTop = -position.y > 1000
     },
-    loadMore() {
-      // console.log('上拉加载更多')
-      this.getHomeGoods(this.currentType)
-    }
+    // loadMore() {
+    //   // console.log('上拉加载更多')
+    //   this.getHomeGoods(this.currentType)
+    // }
   }
 }
 </script>
