@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <router-view />
+    <!-- 保存状态，避免状态被销毁 -->
+    <keep-alive>
+      <router-view />
+    </keep-alive>
     <main-tab-bar />
   </div>
 </template>

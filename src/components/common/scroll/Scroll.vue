@@ -75,6 +75,9 @@ export default {
       // 有值的时候再刷新
       this.scroll && this.scroll.refresh()
       // console.log('-----------')
+    },
+    getScrollY() {
+      return this.scroll ? this.scroll.y : 0
     }
   }
 }
